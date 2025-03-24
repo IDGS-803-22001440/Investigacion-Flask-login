@@ -1,0 +1,37 @@
+{% extends './base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="max-w-sm mx-auto">
+    <!-- Imagen del logo -->
+    <img src="/static/img/pizza-logo.jpg" alt="Pizza Logo" class="mx-auto mb-5 w-64 h-64">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br/>
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible" role="alert">
+            <strong> {{ message }} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <form class="container mt-4 p-4 bg-light shadow rounded" action="/login" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="mb-3">
+            {{ form.username.label(class="form-label") }}  
+            {{ form.username(class="form-control", size=32) }}  
+        </div>
+    
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}  
+            {{ form.password(class="form-control", size=32) }}  
+        </div>
+    
+        <button type="submit" class="btn btn-primary w-100">{{ form.submit.label }}</button>
+    </form>
+</div>
+{% endblock %}
